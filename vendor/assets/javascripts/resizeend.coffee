@@ -7,13 +7,13 @@ do (window) ->
   return unless window.addEventListener and document.createEvent
 
   # Preparing for v2.0
-  events = ['resize:end', 'resizeend'].map (event) ->
+  events = ['resize:end', 'resizeend'].map (name) ->
     event = document.createEvent 'Event'
-    event.initEvent 'resizeend', false, false
+    event.initEvent name, false, false
     event
 
   dispatchResizeEndEvent = ->
-    events.forEach window.dispatchEvent
+    events.forEach window.dispatchEvent.bind(window)
 
   # Assuming `window.orientation` is all about degrees (or nothing),
   # the function expression returns either 0 or 90
@@ -27,7 +27,7 @@ do (window) ->
     currentOrientation = getCurrentOrientation()
 
     # If `window` is resized due to an orientation change,
-    # dispatch `resizeend` immediately; otherwise, slightly delay it
+    # dispatch `resize:end` immediately; otherwise, slightly delay it
     unless currentOrientation is initialOrientation
       dispatchResizeEndEvent()
       initialOrientation = currentOrientation
