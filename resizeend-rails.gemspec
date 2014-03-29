@@ -19,4 +19,19 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
+
+  spec.post_install_message = <<-TEXT
+
+
+    This asset gem will not be updated anymore. In order to
+    make sure you’re using the newest version of resizeend,
+    please include this snippet in your Gemfile:
+
+      source 'https://rails-assets.org'
+      gem 'rails-assets-resizeend'
+
+    Read more about Rails Assets: https://rails-assets.org
+
+
+TEXT
 end
